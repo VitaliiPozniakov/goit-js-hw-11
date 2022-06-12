@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <title>Homework 10</title>
+ 
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
  
@@ -18,9 +20,9 @@
           <input 
           type="text" 
           class="form-control"
-          name="query"
+          name="searchQuery"
           id="searchQuery"
-          placeholder="Що бажаєте шукати"
+          placeholder="Search images..."
           autocomplete="off"
           /> 
         </label>
@@ -28,12 +30,19 @@
       <button type="submit" class="btn btn-primary btn-sm">Шукати</button>
     </form>
 
-    <ul class="images-container js-images-container"></ul>
+ 
+    <div class="gallery"></div>
 
     <button class="btn btn-primary btn-sm" type="button" data-action="load-more">
 <span class="spinner-border spinner-border-sm spinner is-hiden" role="status" aria-hidden="true"></span>
 <span class="label">Показати ще</span>
 </button>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.10.3/simple-lightbox.min.js"
+integrity="sha512-XGiM73niqHXRwBELBEktUKuGXC9yHyaxEsVWvUiCph8yxkaNkGeXJnqs5Ls1RSp4Q+PITMcCy2Dw7HxkzBWQCw=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer"
+></script>
     <script src="index.js" type="module"></script>
   </body>
 </html>
