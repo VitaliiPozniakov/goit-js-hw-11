@@ -40,13 +40,13 @@ function onFormSubmit(e) {
     // console.log(inputSymbols)
 
     btnLoadMore.show()
-    btnLoadMore.disable()
+    // btnLoadMore.disable()
 imagesApiService.resetPage()
 
   const promiseImagesArr = imagesApiService.fetchImages();
 
   //   console.log(promiseImagesArr)
-  
+  clearContainer()
 
   promiseImagesArr
   .then(r => {
@@ -58,19 +58,16 @@ imagesApiService.resetPage()
       return;
     }})
 
-    promiseImagesArr.then(makeImageMarkup).then(
-      imageMarkup => {
-        clearContainer()
-        renderImageCard(imageMarkup)
-        // console.log(imageMarkup)
-      
-        btnLoadMore.enable()
-      }).catch(showError)
+    fetchAndRenderImages()
  
 }
 
 
 function onBtnLoadMoreClick (e) {
+fetchAndRenderImages()
+}
+
+function fetchAndRenderImages (){
   btnLoadMore.disable()
   const promiseImagesArr = imagesApiService.fetchImages();
   promiseImagesArr.then(makeImageMarkup).then(renderImageCard).then(
@@ -82,7 +79,6 @@ function onBtnLoadMoreClick (e) {
       btnLoadMore.enable()
     }).catch(showError)
 }
-
 
 function renderImageCard(imageMarkup) {
   refs.gallery.insertAdjacentHTML('beforeend', imageMarkup)  ;
