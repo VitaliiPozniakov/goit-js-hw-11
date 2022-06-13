@@ -19,8 +19,8 @@ const refs = {
 
 const lightbox = new SimpleLightbox('.gallery a');
 lightbox.refresh();
-console.log(SimpleLightbox);
-console.log(lightbox);
+// console.log(SimpleLightbox);
+// console.log(lightbox);
 
 refs.form.addEventListener('submit', onFormSubmit);
 // refs.btnLoadMore.addEventListener(`click`, onBtnLoadMoreClick)
@@ -53,12 +53,18 @@ function fetchAndRenderImages() {
   btnLoadMore.disable();
   const promiseImagesArr = imagesApiService.fetchImages();
 
-  console.log(promiseImagesArr);
+  // console.log(promiseImagesArr);
 
   promiseImagesArr
     .then(chooseImage => {
-      console.log(chooseImage.totalHits);
-      console.log(chooseImage.hits.length);
+      // console.log(chooseImage.totalHits);
+      // console.log(chooseImage.hits.length);
+      // imagesContainer = document.querySelectorAll(`.gallery__item`)
+      // console.log(imagesContainer.length)
+//       if (chooseImage.totalHits === magesContainer.length){
+// Notify.failure('Ups We are sorry, but you have reached the end of search results. ');
+// return 
+//       }
       return makeImageMarkup(chooseImage);
     })
     .then(renderImageCard)
