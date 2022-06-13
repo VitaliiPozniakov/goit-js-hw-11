@@ -38,6 +38,18 @@ p {
   text-align: center;
 } */
 
+.btn.is-hidden {
+  display: none;
+  /* background-color: aqua;
+  color: red */
+}
+
+.spinner.is-hidden {
+display: none;
+}
+
+
+
 
 .gallery {
   display: grid;
