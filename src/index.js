@@ -13,28 +13,15 @@ const btnLoadMore = new BtnLoadMore({
 
 const refs = {
   form: document.querySelector(`.js-search-form`),
-  gallery: document.querySelector(`.container`),
+  gallery: document.querySelector(`.gallery`),
   btnLoadMore: document.querySelector(`[data-action="load-more"]`),
-
 };
 
 
-// const lightbox = new SimpleLightbox('.gallery a', {});
-// lightbox.refresh();
-// console.log(SimpleLightbox);
-// console.log(lightbox);
-
-
-// import InfiniteScroll from 'infinite-scroll';
-
-// let elem = document.querySelector('.container');
-// let infScroll = new InfiniteScroll( elem, {
-//   // options
-//   path: '.pagination__next',
-//   append: '.post',
-//   history: false,
-// });
-
+const lightbox = new SimpleLightbox('.gallery a', {});
+lightbox.refresh();
+console.log(SimpleLightbox);
+console.log(lightbox);
 
 
 refs.form.addEventListener('submit', onFormSubmit);
