@@ -62,32 +62,25 @@ imagesApiService.resetPage()
       imageMarkup => {
         clearContainer()
         renderImageCard(imageMarkup)
-        console.log(imageMarkup)
+        // console.log(imageMarkup)
       
         btnLoadMore.enable()
       }).catch(showError)
-
-    
-    // then(renderImageCard).catch(showError)
-    
-    // clearContainer()
-    //     btnLoadMore.enable()
-    // .then(
-    //   imageMarkup => {
-    //     renderImageCard(imageMarkup)
-    //     // console.log(imageMarkup)
-    //     clearContainer()
-    //     btnLoadMore.enable()
-    //   })
-
- 
  
 }
 
 
 function onBtnLoadMoreClick (e) {
+  btnLoadMore.disable()
   const promiseImagesArr = imagesApiService.fetchImages();
-  promiseImagesArr.then(makeImageMarkup).then(renderImageCard).catch(showError)
+  promiseImagesArr.then(makeImageMarkup).then(renderImageCard).then(
+    imageMarkup => {
+      // clearContainer()
+      renderImageCard(imageMarkup)
+      // console.log(imageMarkup)
+    
+      btnLoadMore.enable()
+    }).catch(showError)
 }
 
 
