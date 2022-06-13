@@ -6,11 +6,11 @@ export function makeImageMarkup (chooseImage) {
        
       return `
       
-      <div class="photo-card">
-      <a class="gallery__item" href="${largeImageURL}">
-        <img class="gallery__image" src="${webformatURL}" alt="${tags}" title="${tags}"/>/>
-      </a>
-      </div>
+      // <div class="photo-card">
+      // <a class="gallery__item" href="${largeImageURL}">
+      //   <img class="gallery__image" src="${webformatURL}" alt="${tags}" title="${tags}"/>/>
+      // </a>
+      // </div>
    
           `;    
         })
@@ -37,3 +37,12 @@ export function makeImageMarkup (chooseImage) {
 
 // </div>
 // </a> 
+
+
+// {/* <div class="container">
+//   <article class="post">
+//   <a class="gallery__item" href="${largeImageURL}">
+//         <img class="gallery__image" src="${webformatURL}" alt="${tags}" title="${tags}"/>/>
+//       </a>
+//   </article>
+// </div> */}

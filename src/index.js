@@ -3,100 +3,92 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import ImagesApiService from './imagesApiServise';
 import { makeImageMarkup } from './makeImageMarkup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 import BtnLoadMore from './btn-load-more';
-// console.log(SimpleLightbox);
 
 const imagesApiService = new ImagesApiService();
 const btnLoadMore = new BtnLoadMore({
   selector: `[data-action="load-more"]`,
-  hidden: true
-})
-
-console.log(btnLoadMore)
-
-
-
-
+  hidden: true,
+});
 
 const refs = {
   form: document.querySelector(`.js-search-form`),
-  gallery: document.querySelector(`.gallery`),
-  btnLoadMore: document.querySelector(`[data-action="load-more"]`)
+  gallery: document.querySelector(`.container`),
+  btnLoadMore: document.querySelector(`[data-action="load-more"]`),
+
 };
 
-// console.log(refs.btnLoadMore)
+
+// const lightbox = new SimpleLightbox('.gallery a', {});
+// lightbox.refresh();
+// console.log(SimpleLightbox);
+// console.log(lightbox);
+
+
+// import InfiniteScroll from 'infinite-scroll';
+
+// let elem = document.querySelector('.container');
+// let infScroll = new InfiniteScroll( elem, {
+//   // options
+//   path: '.pagination__next',
+//   append: '.post',
+//   history: false,
+// });
+
+
 
 refs.form.addEventListener('submit', onFormSubmit);
 // refs.btnLoadMore.addEventListener(`click`, onBtnLoadMoreClick)
-btnLoadMore.refs.button.addEventListener(`click`, onBtnLoadMoreClick)
-
-
+btnLoadMore.refs.button.addEventListener(`click`, fetchAndRenderImages);
 
 function onFormSubmit(e) {
   e.preventDefault();
 
   imagesApiService.query = e.currentTarget.elements.searchQuery.value;
-    // console.log(inputSymbols)
 
-    btnLoadMore.show()
-    // btnLoadMore.disable()
-imagesApiService.resetPage()
-
+  btnLoadMore.show();
+  imagesApiService.resetPage();
   const promiseImagesArr = imagesApiService.fetchImages();
+  clearContainer();
 
-  //   console.log(promiseImagesArr)
-  clearContainer()
-
-  promiseImagesArr
-  .then(r => {
-    // console.log(r)
-    // console.log(r.hits.length)
+  promiseImagesArr.then(r => {
     if (r.hits.length === 0) {
-      Notify.info('Sorry, there are no images matching your search query. Please try again.');
+      Notify.info(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
       refs.gallery.innerHTML = '';
       return;
-    }})
+    }
+  });
 
-    fetchAndRenderImages()
- 
+  fetchAndRenderImages();
 }
 
 
-function onBtnLoadMoreClick (e) {
-fetchAndRenderImages()
-}
-
-function fetchAndRenderImages (){
-  btnLoadMore.disable()
+function fetchAndRenderImages() {
+  btnLoadMore.disable();
   const promiseImagesArr = imagesApiService.fetchImages();
-  promiseImagesArr.then(makeImageMarkup).then(renderImageCard).then(
-    imageMarkup => {
-      // clearContainer()
-      renderImageCard(imageMarkup)
-      // console.log(imageMarkup)
+  promiseImagesArr
+    .then(makeImageMarkup)
+    .then(renderImageCard)
+    .then(imageMarkup => {
+      renderImageCard(imageMarkup);
     
-      btnLoadMore.enable()
-    }).catch(showError)
+      btnLoadMore.enable();
+    })
+    .catch(showError);
 }
 
 function renderImageCard(imageMarkup) {
-  refs.gallery.insertAdjacentHTML('beforeend', imageMarkup)  ;
+  refs.gallery.insertAdjacentHTML('beforeend', imageMarkup);
 }
 
 function showError(error) {
   //   console.log(`помилка ${error}`);
-  return Notify.failure(
-    'Ups'
-  );
+  return Notify.failure('Ups');
 }
 
-function clearContainer () {
-  refs.gallery.innerHTML = ''
+function clearContainer() {
+  refs.gallery.innerHTML = '';
 }
-
-const lightbox = new SimpleLightbox('.gallery a', {});
-lightbox.refresh();
-
-// console.log(lightbox);
 
