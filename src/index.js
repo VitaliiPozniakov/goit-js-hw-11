@@ -17,12 +17,10 @@ const refs = {
   btnLoadMore: document.querySelector(`[data-action="load-more"]`),
 };
 
-
-const lightbox = new SimpleLightbox('.gallery a', {});
+const lightbox = new SimpleLightbox('.gallery a');
 lightbox.refresh();
 console.log(SimpleLightbox);
 console.log(lightbox);
-
 
 refs.form.addEventListener('submit', onFormSubmit);
 // refs.btnLoadMore.addEventListener(`click`, onBtnLoadMoreClick)
@@ -51,17 +49,22 @@ function onFormSubmit(e) {
   fetchAndRenderImages();
 }
 
-
 function fetchAndRenderImages() {
   btnLoadMore.disable();
   const promiseImagesArr = imagesApiService.fetchImages();
+
+  console.log(promiseImagesArr);
+
   promiseImagesArr
-    .then(makeImageMarkup)
+    .then(chooseImage => {
+      console.log(chooseImage.totalHits);
+      console.log(chooseImage.hits.length);
+      return makeImageMarkup(chooseImage);
+    })
     .then(renderImageCard)
     .then(imageMarkup => {
-      renderImageCard(imageMarkup);
-    
       btnLoadMore.enable();
+      return renderImageCard(imageMarkup);
     })
     .catch(showError);
 }
@@ -78,4 +81,3 @@ function showError(error) {
 function clearContainer() {
   refs.gallery.innerHTML = '';
 }
-
