@@ -1,5 +1,5 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+// import SimpleLightbox from 'simplelightbox';
+// import 'simplelightbox/dist/simple-lightbox.min.css';
 import ImagesApiService from './imagesApiServise';
 import { makeImageMarkup } from './makeImageMarkup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -17,8 +17,8 @@ const refs = {
   btnLoadMore: document.querySelector(`[data-action="load-more"]`),
 };
 
-const lightbox = new SimpleLightbox('.gallery a');
-lightbox.refresh();
+// const lightbox = new SimpleLightbox('.gallery a');
+// lightbox.refresh();
 // console.log(SimpleLightbox);
 // console.log(lightbox);
 
