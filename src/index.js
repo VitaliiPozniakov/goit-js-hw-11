@@ -50,6 +50,9 @@ function onFormSubmit(e) {
 }
 
 function fetchAndRenderImages() {
+
+
+  
   btnLoadMore.disable();
   const promiseImagesArr = imagesApiService.fetchImages();
 
@@ -61,7 +64,7 @@ function fetchAndRenderImages() {
       // console.log(chooseImage.hits.length);
       // imagesContainer = document.querySelectorAll(`.gallery__item`)
       // console.log(imagesContainer.length)
-//       if (chooseImage.totalHits === magesContainer.length){
+//       if (chooseImage.totalHits === imagesContainer.length){
 // Notify.failure('Ups We are sorry, but you have reached the end of search results. ');
 // return 
 //       }
