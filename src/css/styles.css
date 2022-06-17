@@ -154,3 +154,12 @@ a:hover, a:focus {
 .info-item :not(:last-child) {
 margin-right: 5px;
 }
+
+/* .form-inline{
+  margin-bottom: 10px;
+} */
+
+.button{
+  margin-top: 30px;
+  margin-left: 15px;
+}
