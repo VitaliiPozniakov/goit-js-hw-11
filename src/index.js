@@ -34,7 +34,10 @@ async function onFormSubmit(e) {
 
   const images = await imagesApiService.fetchImages();
 
-  Notify.info(`Hooray! We found ${images.totalHits} images.`);
+  if (images.hits.length > 0) {
+    Notify.info(`Hooray! We found ${images.totalHits} images.`);
+  }
+
 
   if (images.hits.length === 0) {
     Notify.info(
