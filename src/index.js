@@ -17,7 +17,7 @@ const refs = {
   btnLoadMore: document.querySelector(`[data-action="load-more"]`),
 };
 
-btnLoadMore.show();
+btnLoadMore.show();``
 
 const lightbox = new SimpleLightbox('.gallery a');
 lightbox.refresh();
@@ -39,6 +39,8 @@ async function onFormSubmit(e) {
   clearContainer();
 
   const images = await imagesApiService.fetchImages();
+
+  console.log(images)
 
   if (images.hits.length === 0) {
     Notify.info(
@@ -64,7 +66,7 @@ async function fetchAndRenderImages() {
 
     const images = await imagesApiService.fetchImages();
 
-    console.log(images);
+    // console.log(images);
 
     const imageMarkup = await makeImageMarkup(images);
 
@@ -72,11 +74,11 @@ async function fetchAndRenderImages() {
     btnLoadMore.enable();
     renderImageCard(imageMarkup);
 
-    console.log(images.totalHits);
-    console.log(images.hits.length);
+    // console.log(images.totalHits);
+    // console.log(images.hits.length);
     imagesContainer = document.querySelectorAll(`.gallery__item`);
 
-    console.log(imagesContainer.length);
+    // console.log(imagesContainer.length);
   } catch (error) {
     showError(error);
   }

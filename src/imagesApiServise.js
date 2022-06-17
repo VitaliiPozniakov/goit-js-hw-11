@@ -1,16 +1,15 @@
+import axios from 'axios';
+
 export default class ImagesApiService {
   constructor() {
     this.searchQuery = '';
-    this.page = 1
+    this.page = 1;
   }
 
-  // https://pixabay.com/api/?key=28004990-f3c49f187ad64f64267c5955f&q=yellow+flowers&image_type=photo
-
-
   async fetchImages() {
-      // console.log(this)
+    // console.log(this)
     const BASE_URL = 'https://pixabay.com/api';
-    const API_KEY = '28004990-f3c49f187ad64f64267c5955f'
+    const API_KEY = '28004990-f3c49f187ad64f64267c5955f';
 
     const searchParams = new URLSearchParams({
       key: API_KEY,
@@ -19,44 +18,28 @@ export default class ImagesApiService {
       orientation: 'horizontal',
       safesearch: 'true',
       per_page: 40,
-      page: this.page
+      page: this.page,
     });
 
     const url = `${BASE_URL}/?${searchParams}`;
 
-    // console.log(url)
+    const images = await axios.get(url);
+    //  const responce =  await fetch(url)
+    //  if (!responce.ok) {
+    //   throw new Error(responce.status);
+    //  }
+    //  const images = await responce.json();
 
-
-   const responce =  await fetch(url)
-   if (!responce.ok) {
-    throw new Error(responce.status);
-   }
-   const images = await responce.json();
-
-        this.incrementPage()
-
-        return images
- 
-
-    // return fetch(url)
-    //   .then(r => {
-    //     if (!r.ok) {
-    //       throw new Error(r.status);
-    //     }
-    //     this.incrementPage()
-    //     // console.log(this)
-    //     return r.json();
-    //   })
- 
-
+    this.incrementPage();
+    return images.data;
   }
 
-  resetPage () {
-    this.page = 1
+  resetPage() {
+    this.page = 1;
   }
 
-  incrementPage () {
-    this.page +=1
+  incrementPage() {
+    this.page += 1;
   }
   get query() {
     return this.searchQuery;
@@ -66,4 +49,3 @@ export default class ImagesApiService {
     this.searchQuery = newQuery;
   }
 }
-
