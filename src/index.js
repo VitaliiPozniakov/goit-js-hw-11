@@ -1,5 +1,5 @@
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import ImagesApiService from './imagesApiServise';
 import { makeImageMarkup } from './makeImageMarkup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -19,8 +19,8 @@ const refs = {
 
 btnLoadMore.show();
 
-// const lightbox = new SimpleLightbox('.gallery a');
-// lightbox.refresh();
+const lightbox = new SimpleLightbox('.gallery a');
+lightbox.refresh();
 // console.log(SimpleLightbox);
 // console.log(lightbox);
 
@@ -35,76 +35,58 @@ async function onFormSubmit(e) {
 
   btnLoadMore.show();
   imagesApiService.resetPage();
-  // const promiseImagesArr = imagesApiService.fetchImages();
+
   clearContainer();
 
   const images = await imagesApiService.fetchImages();
 
-if (images.hits.length === 0) {
-      Notify.info(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-      btnLoadMore.hide();
-      refs.gallery.innerHTML = '';
-      return;
-  // promiseImagesArr.then(r => {
-  //   if (r.hits.length === 0) {
-  //     Notify.info(
-  //       'Sorry, there are no images matching your search query. Please try again.'
-  //     );
-  //     refs.gallery.innerHTML = '';
-  //     return;
-    }
-  // });
+  if (images.hits.length === 0) {
+    Notify.info(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    btnLoadMore.hide();
+    refs.gallery.innerHTML = '';
+    return;
+  }
 
   await fetchAndRenderImages();
 }
 
 async function fetchAndRenderImages() {
- 
-  // const promiseImagesArr = imagesApiService.fetchImages();
-  // console.log(promiseImagesArr);
   try {
+    let imagesContainer = null;
+    // if (images.totalHits === imagesContainer.length){
+    //   Notify.failure('Ups We are sorry, but you have reached the end of search results. ');
+    //   return
+    //       }
+
     btnLoadMore.disable();
+
     const images = await imagesApiService.fetchImages();
-    console.log(images)
-    const imageMarkup = await makeImageMarkup(images)
+
+    console.log(images);
+
+    const imageMarkup = await makeImageMarkup(images);
+
     // console.log(imageMarkup)
     btnLoadMore.enable();
-    const renderedImageCard = await renderImageCard(imageMarkup)
+    renderImageCard(imageMarkup);
 
+    console.log(images.totalHits);
+    console.log(images.hits.length);
+    imagesContainer = document.querySelectorAll(`.gallery__item`);
+
+    console.log(imagesContainer.length);
   } catch (error) {
     showError(error);
   }
 }
-
-  // promiseImagesArr
-  //   .then(chooseImage => {
-
-      // console.log(chooseImage.totalHits);
-      // console.log(chooseImage.hits.length);
-      // imagesContainer = document.querySelectorAll(`.gallery__item`)
-      // console.log(imagesContainer.length)
-//       if (chooseImage.totalHits === imagesContainer.length){
-// Notify.failure('Ups We are sorry, but you have reached the end of search results. ');
-// return 
-      // }
-//       return makeImageMarkup(chooseImage);
-//     })
-//     .then(renderImageCard)
-//     .then(imageMarkup => {
-//       btnLoadMore.enable();
-//       return renderImageCard(imageMarkup);
-//     })
-//     .catch(showError);
-// }
 
 function renderImageCard(imageMarkup) {
   refs.gallery.insertAdjacentHTML('beforeend', imageMarkup);
 }
 
 function showError(error) {
-  //   console.log(`помилка ${error}`);
   return Notify.failure('Ups');
 }
 
