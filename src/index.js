@@ -17,12 +17,7 @@ const refs = {
   btnLoadMore: document.querySelector(`[data-action="load-more"]`),
 };
 
-btnLoadMore.show();``
 
-const lightbox = new SimpleLightbox('.gallery a');
-lightbox.refresh();
-// console.log(SimpleLightbox);
-// console.log(lightbox);
 
 refs.form.addEventListener('submit', onFormSubmit);
 // refs.btnLoadMore.addEventListener(`click`, onBtnLoadMoreClick)
@@ -40,7 +35,11 @@ async function onFormSubmit(e) {
 
   const images = await imagesApiService.fetchImages();
 
-  console.log(images)
+
+  Notify.info(
+    `Hooray! We found ${images.totalHits} images.`
+  );
+
 
   if (images.hits.length === 0) {
     Notify.info(
@@ -55,13 +54,26 @@ async function onFormSubmit(e) {
 }
 
 async function fetchAndRenderImages() {
-  try {
-    let imagesContainer = null;
-    // if (images.totalHits === imagesContainer.length){
-    //   Notify.failure('Ups We are sorry, but you have reached the end of search results. ');
-    //   return
-    //       }
 
+  const lightbox = new SimpleLightbox('.gallery a');
+  lightbox.refresh();
+  // console.log(SimpleLightbox);
+  // console.log(lightbox);
+
+  const images = await imagesApiService.fetchImages();
+  let imagesContainer = document.querySelectorAll(`.gallery__item`);
+  //     console.log(images.totalHits);
+  // console.log(images.hits.length);
+  // console.log(imagesContainer.length);
+  if (images.totalHits <= imagesContainer.length) {
+    btnLoadMore.hide();
+    Notify.failure(
+      'Ups We are sorry, but you have reached the end of search results. '
+    );
+    return;
+  }
+
+  try {
     btnLoadMore.disable();
 
     const images = await imagesApiService.fetchImages();
@@ -74,13 +86,10 @@ async function fetchAndRenderImages() {
     btnLoadMore.enable();
     renderImageCard(imageMarkup);
 
-    // console.log(images.totalHits);
-    // console.log(images.hits.length);
     imagesContainer = document.querySelectorAll(`.gallery__item`);
-
     // console.log(imagesContainer.length);
   } catch (error) {
-    showError(error);
+    showError();
   }
 }
 
@@ -88,7 +97,7 @@ function renderImageCard(imageMarkup) {
   refs.gallery.insertAdjacentHTML('beforeend', imageMarkup);
 }
 
-function showError(error) {
+function showError() {
   return Notify.failure('Ups');
 }
 
