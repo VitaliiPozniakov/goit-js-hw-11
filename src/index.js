@@ -26,34 +26,46 @@ refs.form.addEventListener('submit', onFormSubmit);
 // refs.btnLoadMore.addEventListener(`click`, onBtnLoadMoreClick)
 btnLoadMore.refs.button.addEventListener(`click`, fetchAndRenderImages);
 
-function onFormSubmit(e) {
+async function onFormSubmit(e) {
   e.preventDefault();
 
   imagesApiService.query = e.currentTarget.elements.searchQuery.value;
 
   btnLoadMore.show();
   imagesApiService.resetPage();
-  const promiseImagesArr = imagesApiService.fetchImages();
+  // const promiseImagesArr = imagesApiService.fetchImages();
   clearContainer();
 
-  promiseImagesArr.then(r => {
-    if (r.hits.length === 0) {
+  const images = await imagesApiService.fetchImages();
+
+if (images.hits.length === 0) {
       Notify.info(
         'Sorry, there are no images matching your search query. Please try again.'
       );
       refs.gallery.innerHTML = '';
       return;
+  // promiseImagesArr.then(r => {
+  //   if (r.hits.length === 0) {
+  //     Notify.info(
+  //       'Sorry, there are no images matching your search query. Please try again.'
+  //     );
+  //     refs.gallery.innerHTML = '';
+  //     return;
     }
-  });
+  // });
 
-  fetchAndRenderImages();
+  await fetchAndRenderImages();
 }
 
-function fetchAndRenderImages() {
+async function fetchAndRenderImages() {
 
 
   
   btnLoadMore.disable();
+
+
+
+  // const images = await imagesApiService.fetchImages();
   const promiseImagesArr = imagesApiService.fetchImages();
 
   // console.log(promiseImagesArr);
