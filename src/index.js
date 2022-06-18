@@ -45,7 +45,7 @@ async function fetchAndRenderImages() {
     btnLoadMore.disable();
     const images = await imagesApiService.fetchImages();
 
-    console.log(images)
+    // console.log(images)
 
       let imagesContainer = document.querySelectorAll(`.gallery__item`);
       if (images.totalHits <= imagesContainer.length) {
@@ -71,14 +71,14 @@ async function fetchAndRenderImages() {
     renderImageCard(imageMarkup);
     imagesContainer = document.querySelectorAll(`.gallery__item`);
 
-    
-    const { height: cardHeight } = document
-    .querySelector('.gallery')
-    .firstElementChild.getBoundingClientRect();
-  window.scrollBy({
-    top: cardHeight * 10,
-    behavior: 'smooth',
-  });
+
+  //   const { height: cardHeight } = document
+  //   .querySelector('.gallery')
+  //   .firstElementChild.getBoundingClientRect();
+  // window.scrollBy({
+  //   top: cardHeight * 10,
+  //   behavior: 'smooth',
+  // });
 
 
 return images
