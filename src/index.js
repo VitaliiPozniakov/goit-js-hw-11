@@ -53,17 +53,20 @@ async function onFormSubmit(e) {
 
 async function fetchAndRenderImages() {
   const images = await imagesApiService.fetchImages();
+  
   let imagesContainer = document.querySelectorAll(`.gallery__item`);
+ 
   //     console.log(images.totalHits);
   // console.log(images.hits.length);
   // console.log(imagesContainer.length);
-  if (images.totalHits <= imagesContainer.length) {
-    btnLoadMore.hide();
-    Notify.failure(
-      'Ups We are sorry, but you have reached the end of search results. '
-    );
-    return;
-  }
+  // console.log(images)
+  // if (images.totalHits <= imagesContainer.length) {
+  //   btnLoadMore.hide();
+  //   Notify.failure(
+  //     'Ups We are sorry, but you have reached the end of search results. '
+  //   );
+  //   return;
+  // }
 
   try {
     btnLoadMore.disable();
@@ -76,7 +79,14 @@ async function fetchAndRenderImages() {
 
     // console.log(imageMarkup)
     btnLoadMore.enable();
+
+    console.log(imagesApiService)
+    // console.log(imagesApiService.page)
+
     renderImageCard(imageMarkup);
+
+   
+
 
     imagesContainer = document.querySelectorAll(`.gallery__item`);
     // console.log(imagesContainer.length);

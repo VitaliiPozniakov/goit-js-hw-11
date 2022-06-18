@@ -29,6 +29,7 @@ export default class ImagesApiService {
     //   throw new Error(responce.status);
     //  }
     //  const images = await responce.json();
+    // return images;
 
     this.incrementPage();
     return images.data;
