@@ -22,16 +22,10 @@ export default class ImagesApiService {
     });
 
     const url = `${BASE_URL}/?${searchParams}`;
-
     const images = await axios.get(url);
-    //  const responce =  await fetch(url)
-    //  if (!responce.ok) {
-    //   throw new Error(responce.status);
-    //  }
-    //  const images = await responce.json();
-    // return images;
 
     this.incrementPage();
+
     return images.data;
   }
 
