@@ -4,6 +4,7 @@ import ImagesApiService from './imagesApiServise';
 import { makeImageMarkup } from './makeImageMarkup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import BtnLoadMore from './btn-load-more';
+import axios, { AxiosError } from 'axios';
 
 const imagesApiService = new ImagesApiService();
 const btnLoadMore = new BtnLoadMore({
@@ -47,14 +48,14 @@ async function fetchAndRenderImages() {
 
     // console.log(images)
 
-      let imagesContainer = document.querySelectorAll(`.gallery__item`);
-      if (images.totalHits <= imagesContainer.length) {
-        btnLoadMore.hide();
-        Notify.failure(
-          'Ups We are sorry, but you have reached the end of search results. '
-        );
-        return;
-      }
+      // let imagesContainer = document.querySelectorAll(`.gallery__item`);
+      // if (images.totalHits <= imagesContainer.length) {
+      //   btnLoadMore.hide();
+      //   Notify.failure(
+      //     'Ups We are sorry, but you have reached the end of search results. '
+      //   );
+      //   return;
+      // }
 
 
     if (images.hits.length === 0) {
@@ -69,7 +70,7 @@ async function fetchAndRenderImages() {
     const imageMarkup = await makeImageMarkup(images);
     btnLoadMore.enable();
     renderImageCard(imageMarkup);
-    imagesContainer = document.querySelectorAll(`.gallery__item`);
+    // imagesContainer = document.querySelectorAll(`.gallery__item`);
 
 
   //   const { height: cardHeight } = document
@@ -85,7 +86,15 @@ async function fetchAndRenderImages() {
 return images
 
   } catch (error) {
-    showError();
+    const AxiosError= await error
+if (AxiosError.message === "Request failed with status code 400") {
+  btnLoadMore.hide();
+    Notify.failure(
+      'Ups We are sorry, but you have reached the end of search results. '
+    );
+    return;
+}
+showError();
   }
 }
 
