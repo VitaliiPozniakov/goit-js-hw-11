@@ -81,6 +81,7 @@ async function fetchAndRenderImages() {
   // });
 
 
+
 return images
 
   } catch (error) {
@@ -110,3 +111,20 @@ function onGalleryClick(e) {
   });
   // lightbox.refresh();
 }
+
+
+
+
+// function infinityScroll() {
+//   while(true) {
+//     // нижняя граница документа
+//     let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+
+//     // если пользователь прокрутил достаточно далеко (< 100px до конца)
+//     if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
+//       // добавим больше данных
+//       document.body.insertAdjacentHTML("beforeend", `<p>Дата: ${new Date()}</p>`);
+//       fetchAndRenderImages()
+//     }
+//   }
+// }
