@@ -128,3 +128,8 @@ function onGalleryClick(e) {
 //     }
 //   }
 // }
+
+
+// window.addEventListener('scroll', populate);
+
+// populate(); // инициализация документа
