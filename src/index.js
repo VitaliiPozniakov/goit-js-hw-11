@@ -17,6 +17,14 @@ const { form, gallery } = {
   gallery: document.querySelector(`.gallery`),
 };
 
+
+// let lightbox = new SimpleLightbox('.gallery a', {
+//   captions: true,
+//   captionsData: 'alt',
+//   captionDelay: 250,
+// });
+// console.log(lightbox)
+
 form.addEventListener('submit', onFormSubmit);
 btnLoadMore.refs.button.addEventListener(`click`, fetchAndRenderImages);
 gallery.addEventListener(`click`, onGalleryClick);
@@ -112,8 +120,10 @@ function onGalleryClick(e) {
     captionsData: 'alt',
     captionDelay: 250,
   });
-  // lightbox.refresh();
+  lightbox.open()
 }
+
+
 
 // custom infinity scroll
 window.addEventListener(
