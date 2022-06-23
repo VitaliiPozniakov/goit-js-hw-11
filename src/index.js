@@ -82,7 +82,11 @@ async function fetchAndRenderImages() {
 
 function renderImageCard(imageMarkup) {
   gallery.insertAdjacentHTML('beforeend', imageMarkup);
-   new SimpleLightbox('.gallery a')
+let lightbox = new SimpleLightbox('.gallery a', {
+    captions: true,
+    captionsData: 'alt',
+    captionDelay: 250,
+  })
 }
 
 function showError() {
@@ -92,7 +96,6 @@ function showError() {
 function clearContainer() {
   gallery.innerHTML = '';
 }
-
 
 // custom infinity scroll
 // window.addEventListener(
