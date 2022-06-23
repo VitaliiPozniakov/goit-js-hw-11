@@ -1,4 +1,5 @@
 import SimpleLightbox from 'simplelightbox';
+// import SimpleLightbox from '../node_modules/simplelightbox/dist/simple-lightbox.modules.js';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import ImagesApiService from './imagesApiServise';
 import { makeImageMarkup } from './makeImageMarkup';
@@ -76,6 +77,7 @@ async function fetchAndRenderImages() {
     const imageMarkup = await makeImageMarkup(images);
     btnLoadMore.enable();
     renderImageCard(imageMarkup);
+
     // imagesContainer = document.querySelectorAll(`.gallery__item`);
 
     //   const { height: cardHeight } = document
@@ -115,43 +117,43 @@ function clearContainer() {
 function onGalleryClick(e) {
   e.preventDefault();
 
-  let lightbox = new SimpleLightbox('.gallery a', {
-    captions: true,
-    captionsData: 'alt',
-    captionDelay: 250,
+  // let lightbox = new SimpleLightbox('.gallery a', {
+  //   captions: true,
+  //   captionsData: 'alt',
+  //   captionDelay: 250,
+  
+  // });
+
+  let gallery = new SimpleLightbox('.gallery a');
+  gallery.on('show.simplelightbox', function () {
+    // do something…
   });
-  lightbox.open()
+
+//   let gallery = new SimpleLightbox('.gallery a');
+// gallery.on('show.simplelightbox', function () {
+// 	// do something…
+// });
+  
+  // lightbox.refresh()
+  // // lightbox.open()
+  // lightbox.on('show.simplelightbox', function () {
+  //  console.log('egb')
+  // });
+  console.log(lightbox)
+
 }
 
 
 
 // custom infinity scroll
-window.addEventListener(
-  'scroll',
-  debounce(() => {
-    const documentRect = document.documentElement.getBoundingClientRect();
-    console.log('bottom', documentRect.bottom);
-    if (documentRect.bottom < document.documentElement.clientHeight + 150) {
-      console.log('done');
-      fetchAndRenderImages();
-    }
-  }, 500)
-);
-
-// function infinityScroll() {
-//   while(true) {
-//     // нижняя граница документа
-//     let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
-
-//     // если пользователь прокрутил достаточно далеко (< 100px до конца)
-//     if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
-//       // добавим больше данных
-//       document.body.insertAdjacentHTML("beforeend", `<p>Дата: ${new Date()}</p>`);
-//       fetchAndRenderImages()
+// window.addEventListener(
+//   'scroll',
+//   debounce(() => {
+//     const documentRect = document.documentElement.getBoundingClientRect();
+//     console.log('bottom', documentRect.bottom);
+//     if (documentRect.bottom < document.documentElement.clientHeight + 150) {
+//       console.log('done');
+//       fetchAndRenderImages();
 //     }
-//   }
-// }
-
-// window.addEventListener('scroll', populate);
-
-// populate(); // инициализация документа
+//   }, 500)
+// );
