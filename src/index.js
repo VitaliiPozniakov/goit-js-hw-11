@@ -4,14 +4,14 @@ import ImagesApiService from './imagesApiServise';
 import { makeImageMarkup } from './makeImageMarkup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import BtnLoadMore from './btn-load-more';
-import debounce from 'debounce';
-import simpleLightbox from 'simplelightbox';
 
 const imagesApiService = new ImagesApiService();
+// console.log(imagesApiService)
 const btnLoadMore = new BtnLoadMore({
   selector: `[data-action="load-more"]`,
   hidden: true,
 });
+// console.log(btnLoadMore)
 
 const { form, gallery } = {
   form: document.querySelector(`.js-search-form`),
@@ -25,6 +25,7 @@ async function onFormSubmit(e) {
   e.preventDefault();
 
   imagesApiService.query = e.currentTarget.elements.searchQuery.value.trim();
+  // console.log(imagesApiService)
 
   if (imagesApiService.query === null || imagesApiService.query === ``) {
     return;
